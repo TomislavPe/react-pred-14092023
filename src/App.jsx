@@ -1,52 +1,35 @@
 import "./App.css";
-import { Component } from "react";
+import { useState } from "react";
 import { UserClass, UserFunction, UserChildren } from "./user";
 
-const users = [
-    { name: "Ivan", years: 30 },
-    { name: "Marko", years: 35 },
-    { name: "Ana", years: 25 },
-];
+export default function App() {
+    const initialUsers = [
+        { name: "Ivan", years: 30 },
+        { name: "Marko", years: 35 },
+        { name: "Ana", years: 25 },
+    ];
+    const tekst = "Proizvoljan tekst";
 
-class App extends Component {
-    constructor(props) {
-        super(props);
+    const [users, setUsers] = useState(initialUsers);
 
-        this.state = {
-            users: [
-                { name: "Ivan", years: 30 },
-                { name: "Marko", years: 35 },
-                { name: "Ana", years: 25 },
-            ],
-            tekst: "Proizvoljan tekst",
-        };
-    }
-
-    uvecajGodine = () => {
+    const uvecajGodine = () => {
         //koristite map funkciju za iterirat po state
-        console.log("povecaj statej")
-        console.log(this.state.users[0].years)
-        const newUsers = this.state.users.map(user => {
+        const newUsers = users.map((user) => {
             return { ...user, years: user.years + 1 };
         });
 
-        this.setState({...this.state, users: newUsers});
+        setUsers(newUsers);
     };
 
-    render() {
-        const { users, tekst } = this.state;
-        return (
-            <>
-                <h1>State</h1>
-                <UserClass name={users[0].name} years={users[0].years} />
-                <UserFunction name={users[1].name} years={users[1].years} />
-                <UserChildren name={users[2].name} years={users[2].years}>
-                    {tekst}
-                </UserChildren>
-                <button onClick={this.uvecajGodine}>Uvecaj godine</button>
-            </>
-        );
-    }
+    return (
+        <>
+            <h1>State</h1>
+            <UserClass name={users[0].name} years={users[0].years} />
+            <UserFunction name={users[1].name} years={users[1].years} />
+            <UserChildren name={users[2].name} years={users[2].years}>
+                <button onClick={uvecajGodine}>Uvecaj godine</button>
+                {tekst}
+            </UserChildren>
+        </>
+    );
 }
-
-export default App;
