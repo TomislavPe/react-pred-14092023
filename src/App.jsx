@@ -24,10 +24,13 @@ class App extends Component {
 
     uvecajGodine = () => {
         //koristite map funkciju za iterirat po state
-        const newUsers = users.map((user) => {
+        console.log("povecaj statej")
+        console.log(this.state.users[0].years)
+        const newUsers = this.state.users.map(user => {
             return { ...user, years: user.years + 1 };
         });
-        this.setState({users: newUsers});
+
+        this.setState({...this.state, users: newUsers});
     };
 
     render() {
